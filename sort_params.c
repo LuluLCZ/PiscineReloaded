@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sort_params.c                                   :+:      :+:    :+:   */
+/*   sort_params.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llacaze <llacaze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/14 12:12:43 by Lulu              #+#    #+#             */
-/*   Updated: 2017/08/21 00:16:56 by llacaze          ###   ########.fr       */
+/*   Created: 2017/09/19 13:28:44 by llacaze           #+#    #+#             */
+/*   Updated: 2017/09/19 13:50:22 by llacaze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 void    ft_putchar(char c)
 {
@@ -22,7 +25,7 @@ void    ft_putstr(char *str)
     int     i;
 
     i = 0;
-    while (str[i])
+    while (str[i] != '\0')
     {
         ft_putchar(str[i]);
         i++;
@@ -35,44 +38,45 @@ int     ft_strcmp(char *s1, char *s2)
 
     a = 0;
     while (s1[a] && s2[a] && s1[a] == s2[a])
+    {
         a++;
+    }
     return (s1[a] - s2[a]);
 }
 
-void	aff(char **argv)
+void    aff(char **av)
 {
-	int nb;
+    int     i;
 
-	nb = 1;
-	while (argv[nb])
-	{
-		ft_putstr(argv[nb]);
-		ft_putchar('\n');
-		nb++;
-	}
+    i = 1;
+    while (av[i])
+    {
+        ft_putstr(av[i]);
+        ft_putchar('\n');
+        i++;
+    }
 }
 
-int		main(int argc, char **argv)
+int     main(int ac, char **av)
 {
-	int		nb;
-	char	*tmp;
+    int     i;
+    char    *tmp;
 
-	tmp = 0;
-	nb = 1;
-	if (argc <= 1)
-		return (0);
-	while (argv[nb + 1] != '\0')
-	{
-		if (ft_strcmp(argv[nb], argv[nb + 1]) > 0)
-		{
-			tmp = argv[nb + 1];
-			argv[nb + 1] = argv[nb];
-			argv[nb] = tmp;
-			nb = 0;
-		}
-		nb++;
-	}
-	nb = 0;
-	aff(argv);
-	return (0);
+    i = 0;
+    tmp = 0;
+    if (ac <= 1)
+        return (0);
+    while (av[i + 1] != '\0')
+    {
+        if (ft_strcmp(av[i], av[i + 1]) > 0)
+        {
+            tmp = av[i];
+            av[i] = av[i+1];
+            av[i+1] = tmp;
+            i = 0;
+        }
+        i++;
+    }
+    aff(av);
+    return (0);
 }
